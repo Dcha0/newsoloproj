@@ -1,0 +1,7 @@
+/* DASHBOARD.HTML */
+
+th, td{
+    width: 215px;
+    text-align: center;
+    border: 2px solid black;
+}

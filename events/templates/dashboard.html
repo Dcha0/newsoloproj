@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $('form').submit(function(){
+                console.log($(this).submit());
+                return false
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div class="head">
+            <h1 class="db_h1">Welcome <a href="/user-info">{{ request.session.user }}</a></h1>
+            <a href="/logging-out" style="text-decoration: none;">Log Out</a>
+        </div>
+        <div class="body">
+            <table>
+                <h3>Today is <span style="color: blue;">{{time}}</span></h3>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Location</th>
+                        <th>Head Count</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <table>
+                <h3>Your future events</h3>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Location</th>
+                        <th>Head Count</th>
+                        <th>Time</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>{{ event.event }}</td>
+                        <td>{{event.location}}</td>
+                        <td>{{event.head_count}}</td>
+                        <td>{{event.time}}</td>
+                        <td>{{event.date}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if messages %}
+        <ul class="messages" style="list-style-type: none;">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}><span style="color: blue;">{{ message }}</span></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="leg">
+            <h2 class="eventForm">Start an Event</h2>
+            <form action="/postEvent" method="POST">
+                {% csrf_token %}
+                Event: <input type="text" name="event" class="event-form">
+                Location: <input type="text" name="location" class="event-form">
+                head Count: <input type="text" name="head_count" class="event-form">
+                Date: <input type="date" name="date" class="event-form">
+                Time: <input type="text" name="time" class="event-form">
+                <button class="event_btn">Create</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
