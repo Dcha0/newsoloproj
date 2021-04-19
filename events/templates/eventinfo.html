@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{event.event}} Event Information</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script>
+        function myMap() {
+            var mapProp = {
+                center: new google.maps.LatLng(51.508742, -0.120850),
+                zoom: 5,
+            };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="one_event">
+        <div class="links">
+            <a href="/dashboard" style="text-decoration: none;">Home</a>   |   <a href="/user-info" style="text-decoration: none;">My account</a>
+                |   <a href="/allEvents" style="text-decoration: none;">Events</a>  |  <a href="/logging-out" style="text-decoration: none;">Logout</a>
+        </div>
+        <div class="one_event">
+            <ul>
+                <li
+                    style="text-decoration: underline; font-size: 35px; list-style: none; color: indigo; font-style: italic;">
+                    Event</li>
+            </ul>
+            <ul>
+                <li style="list-style: none; color: lightblue; font-size: 20px;">{{event.event}}</li>
+            </ul>
+            <ul>
+                <li
+                    style="text-decoration: underline; font-size: 35px; list-style: none; color: indigo; font-style: italic;">
+                    Location</li>
+            </ul>
+            <ul>
+                <li style="list-style: none; color: lightblue; font-size: 20px;">{{event.location}}</li>
+            </ul>
+            <ul>
+                <li
+                    style="text-decoration: underline; font-size: 35px; list-style: none; color: indigo; font-style: italic;">
+                    Number of participants</li>
+            </ul>
+            <ul>
+                <li style="list-style: none; color: lightblue; font-size: 20px;">{{event.user_add_event.count}}/{{event.head_count}}</li>
+            </ul>
+            <ul>
+                <li
+                    style="text-decoration: underline; font-size: 35px; list-style: none; color: indigo; font-style: italic;">
+                    Date</li>
+            </ul>
+            <ul>
+                <li style="list-style: none; color: lightblue; font-size: 20px;">{{event.date}}</li>
+            </ul>
+            <ul>
+                <li
+                    style="text-decoration: underline; font-size: 35px; list-style: none; color: indigo; font-style: italic;">
+                    Time</li>
+            </ul>
+            <ul>
+                <li style="list-style: none; color: lightblue; font-size: 20px;">{{event.time}}</li>
+            </ul>
+            <p style="font-style: italic; padding-top: 10px;">For more information on this Event</p>
+            <p style="font-style: italic;">Please Contact {{event.user_event.fname}} at {{event.user_event.email}}</p>
+        </div>
+        <div class="map">
+            <p style="text-align: center; font-style: italic; color: lightblue;">Click view larger map to search for destination</p>
+            <p><iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d21570.427419802538!2d-122.22347339999999!3d47.484002049999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1618618606133!5m2!1sen!2sus" width="500" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></p>
+        </div>
+    </div>
+</body>
+
+</html>

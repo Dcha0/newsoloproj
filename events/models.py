@@ -32,7 +32,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
     
-    
+
 class EventManager(models.Manager):
     def event_validator(self, data):
         errors = {}
@@ -51,10 +51,11 @@ class EventManager(models.Manager):
 class Event(models.Model):
     event = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
-    date = models.DateTimeField(blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
     time = models.CharField(max_length=20)
     head_count = models.CharField(max_length=20)
     user_event = models.ForeignKey(User, related_name="event_poster", on_delete=models.CASCADE)
+    user_add_event = models.ManyToManyField(User, related_name="join_events")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = EventManager()

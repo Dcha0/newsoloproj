@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="eventPage_container">
+        <div class="links">
+            <a href="/dashboard" style="text-decoration: none;">Home</a>   |   <a href="/user-info" style="text-decoration: none;">My account</a>
+                |   <a href="/logging-out" style="text-decoration: none;">Logout</a>
+        </div>
+
+        <div class="all_events">
+            <h2 class="eventPage_h2">Join An Event</h2>
+            {% if messages %}
+            <ul class="messages" style="list-style-type: none; text-align: center;">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}" {% endif %}><span style="color: white;">{{ message }}</span></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Location</th>
+                        <th>Attendees</th>
+                        <th>Time</th>
+                        <th>Date</th>
+                        <th>Event Creator</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    {% if user not in event.user_add_event.all %}
+                    <tr>
+                        <td><a href="/event-info/{{event.id}}">{{event.event}}</a></td>
+                        <td>{{event.location}}</td>
+                        <td>{{event.user_add_event.count}}/{{event.head_count}}</td>
+                        <td>{{event.time}}</td>
+                        <td>{{event.date}}</td>
+                        <td><a href="/user-profile/{{event.user_event.id}}">{{event.user_event.fname}}</a></td>
+                        <td> <a href="/join-event/{{event.id}}">Join</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

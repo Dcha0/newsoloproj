@@ -9,83 +9,87 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
-
         $(document).ready(function(){
             $('form').submit(function(){
                 console.log($(this).submit());
                 return false
             });
         });
-        
     </script>
 </head>
 <body>
     <div id="container">
-        <div class="head">
-            <h1 class="db_h1">Welcome <a href="/user-info">{{ request.session.user }}</a></h1>
-            <a href="/logging-out" style="text-decoration: none;">Log Out</a>
+        <div class="links">
+            <a href="/allEvents" style="text-decoration: none; ">Events</a>   |   <a href="/user-info" style="text-decoration: none;">My account</a>
+                |   <a href="/logging-out" style="text-decoration: none;">Logout</a>
         </div>
+            <h1 class="db_h1">Welcome <a href="/user-info">{{ request.session.user }}</a></h1>
         <div class="body">
-            <table>
-                <h3>Today is <span style="color: blue;">{{time}}</span></h3>
+            <table class="db_table1" style="margin:auto">
+                <h2 class="db_h2">Today is <span style="color: blue;">{{time}}</span> and you have {{today_event.count}} events.</h2>
                 <thead>
                     <tr>
                         <th>Event</th>
                         <th>Location</th>
-                        <th>Head Count</th>
+                        <th>Attendees</th>
                         <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for event in today_event %}
+                    {% if user in event.user_add_event.all %}
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{event.event}}</td>
+                        <td>{{event.location}}</td>
+                        <td>{{event.user_add_event.count}}/{{event.head_count}}</td>
+                        <td>{{event.time}}</td>
                     </tr>
-                    
+                    {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
-            <table>
-                <h3>Your future events</h3>
+            <table class="db_table2" style="margin:auto">
+                <h2 class="db_h2" style="padding-top: 30px;">Your future events</h2>
                 <thead>
                     <tr>
                         <th>Event</th>
                         <th>Location</th>
-                        <th>Head Count</th>
+                        <th>Attendees</th>
                         <th>Time</th>
                         <th>Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for event in events %}
+                    {% for event in user.join_events.all %}
                     <tr>
-                        <td>{{ event.event }}</td>
+                        <td><a href="/event-info/{{event.id}}">{{ event.event }}</a></td>
                         <td>{{event.location}}</td>
-                        <td>{{event.head_count}}</td>
+                        <td>{{event.user_add_event.count}}/{{event.head_count}}</td>
                         <td>{{event.time}}</td>
                         <td>{{event.date}}</td>
+                        <td><a href="/cancel-event/{{event.id}}">Cancel</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
         {% if messages %}
-        <ul class="messages" style="list-style-type: none;">
+        <ul class="messages" style="list-style-type: none; text-align: center;">
             {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}><span style="color: blue;">{{ message }}</span></li>
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}><span style="color: white;">{{ message }}</span></li>
             {% endfor %}
         </ul>
         {% endif %}
         <div class="leg">
-            <h2 class="eventForm">Start an Event</h2>
-            <form action="/postEvent" method="POST">
+            <h2 class="eventForm" style="font-style: italic; color: indigo;">Start an Event</h2>
+            <form action="/postEvent" method="POST" class="event_form">
                 {% csrf_token %}
-                Event: <input type="text" name="event" class="event-form">
-                Location: <input type="text" name="location" class="event-form">
-                head Count: <input type="text" name="head_count" class="event-form">
-                Date: <input type="date" name="date" class="event-form">
-                Time: <input type="text" name="time" class="event-form">
+                <input type="text" name="event" class="event-form" placeholder="Event Name">
+                <input type="text" name="location" class="event-form" placeholder="Location">
+                <input type="text" name="head_count" class="event-form" placeholder="# of participants">
+                <input type="date" name="date" class="event-form" placeholder="Date">
+                <input type="text" name="time" class="event-form" placeholder="Time">
                 <button class="event_btn">Create</button>
             </form>
         </div>

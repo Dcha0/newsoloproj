@@ -1,7 +1,254 @@
+
+/* LOGIN.HTML */
+#wrapper {
+    background-color: gray;
+    padding-bottom: 50px;
+    padding-top: 15px;
+}
+
+.login_form {
+    margin-top: -20px;
+}
+.register {
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+    border: 4px solid black;
+    padding: 60px;
+    vertical-align: top;
+    margin-left: 51px;
+}
+
+.register_form {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.login {
+    vertical-align: top;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.login_h1 {
+    margin-top: auto;
+    font-size: 60px;
+    text-align: center;
+    color: white;
+    font-style: italic;
+    background-color: rgb(47, 21, 66);
+}
+
+.photos {
+    display: inline-block;
+    max-width: 70%;
+    height: auto;
+    margin-left: 15px;
+}
+
+
+
 /* DASHBOARD.HTML */
 
-th, td{
-    width: 215px;
+#container {
+    background-color: gray;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+
+.links {
+    margin: auto;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+}
+
+.head {
+    background-color: rgb(47, 21, 66);
+}
+
+.db_h1 {
+    font-style: italic;
+    margin-left: 70px;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.head_h1 {
+    font-size: 80px;
+    text-align: center;
+    color: white;
+    font-style: italic;
+    margin-bottom: auto;
+}
+
+.db_h2 {
+    font-size: 20px;
+    margin-left: 18%; 
+    color: lightblue;
+}
+
+th {
+    width: 250px;
+    text-align: center;
+    font-size: 15px;
+    border: 2px solid black;
+    padding: 8px;
+    color: white;
+    background-color: rgb(47, 21, 66);
+}
+
+td {
+    width: 250px;
     text-align: center;
     border: 2px solid black;
+    padding: 8px;
+    color: lightblue;
+}
+
+.leg {
+    margin: auto;
+    text-align: center;
+    margin-top: 70px;
+    border: 4px solid black;
+    width: 1000px;
+    padding: 20px;
+}
+
+.event_btn, .login_btn, .pro_btn, .acc_btn {
+    background-color: rgb(47, 21, 66);
+    color: white;
+}
+
+
+/* eventPage.html */
+
+#eventPage_container {
+    background-color: gray;
+    padding-bottom: 50px;
+    padding-top: 30px;
+    height: 500px;
+}
+
+.eventPage_h2 {
+    color: indigo;
+    margin-top: 50px;
+    margin-left: 15%;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+
+/* eventinfo.html */
+
+#one_event {
+    background-color: gray;
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.one_event {
+    display: inline-block;
+    padding: 50px;
+    vertical-align: top;
+    margin-left: 100px;
+}
+
+.map {
+    display: inline-block;
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+
+/* profile.html */
+
+#profile_wrapper {
+    background-color: gray;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+
+.profile_h1 {
+    color: indigo;
+    margin-top: 80px;
+    margin-left: 50px;
+    font-style: italic;
+    display: inline-block;
+    width: 50%;
+}
+
+.pro_h1 {
+    display: inline-block;
+    width: 40%;
+}
+
+.userInfo {
+    margin-left: 40px;
+    color: lightblue;
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 50px;
+    border: 4px solid white;
+    width: 20%;
+}
+
+.my_events {
+    display: inline-block;
+    width: 60%;
+    vertical-align: top;
+    margin-left: 30px;
+}
+
+
+/* account.html */
+
+#account {
+    background-color: gray;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+
+.updateAccount {
+    display: inline-block;
+    width: 450px;
+    margin-left: 100px;
+    padding: 40px;
+    border: 4px solid white;
+}
+
+.accountInfo {
+    margin-left: 70px;
+    color: lightblue;
+    font-size: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+    vertical-align: top;
+    padding: 50px;
+    border: 4px solid white;
+}
+
+.account_h1 {
+    color: indigo;
+    margin-top: 40px;
+    margin-left: 50px;
+    font-style: italic;
+}
+
+.acc_h3 {
+    margin-left: 20px;
+    margin-bottom: auto;
+    font-style: italic;
+}
+
+.acc_events {
+    margin: auto;
+    text-align: center;
+}
+
+.acc_table {
+    color: indigo;
+    font-style: italic;
 }

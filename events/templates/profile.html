@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('form').submit(function(){
+                console.log($(this).submit());
+                return false
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="profile_wrapper">
+        <div class="links">
+            <a href="/dashboard" style="text-decoration: none;">Home</a>   |   <a href="/user-info" style="text-decoration: none;">My account</a>
+                |   <a href="/allEvents" style="text-decoration: none;">Events</a>   |   <a href="/logging-out" style="text-decoration: none;">Logout</a>
+        </div>
+        <h1 class="login_h1">Event Finder</h1>
+        <h1 class="profile_h1">User Information</h1>
+        <h1  class="pro_h1" style="color: indigo; font-style: italic;">Events User Created</h1>
+        <div class="userInfo">
+            <ul>
+                <li style="list-style-type: none;">Name: {{ user.fname }} {{ user.lname }}</li>
+                <li style="list-style-type: none;">Email: {{ user.email }}</li>
+                <li style="list-style-type: none;">Joined In: {{ user.created_at }}</li>
+            </ul>
+        </div>
+        <div class="my_events">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in user.event_poster.all %}
+                    <tr>
+                        <td>{{event.event}}</td>
+                        <td>{{event.location}}</td>
+                        <td>{{event.date}}</td>
+                        <td>{{event.time}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

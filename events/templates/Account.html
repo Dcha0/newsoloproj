@@ -5,14 +5,84 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('form').submit(function(){
+                console.log($(this).submit());
+                return false
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="userInfo">
-        <a href="/dashboard">Home</a> / <a href="/logging-out">Log Out</a>
-        <ul>
-            <li>Name: {{ user.fname }}</li>
-            <li>Email: {{ user.email }}</li>
+    <div id="account">
+        <div class="links">
+            <a href="/dashboard" style="text-decoration: none;">Home</a>  |   <a href="/allEvents" 
+            style="text-decoration: none;">Events</a>   |   <a href="/logging-out" style=
+            "text-decoration: none;">Logout</a>
+        </div>
+        <h1 class="login_h1">Event Finder</h1>
+        {% if messages %}
+        <ul class="messages" style="list-style-type: none; text-align: center;">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}><span style="color: white;">{{ message }}</span></li>
+            {% endfor %}
         </ul>
+        {% endif %}
+        <h1 class="account_h1">User Information</h1>
+        <div class="accountInfo">
+            <ul>
+                <li style="list-style-type: none;">Name: {{ user.fname }}</li>
+                <li style="list-style-type: none;">Email: {{ user.email }}</li>
+                <li style="list-style-type: none;">Password: (only you know the password)</li>
+                <li style="list-style-type: none;">Joined In: {{ user.created_at }}</li>
+            </ul>
+            <ul>
+                <li style="list-style-type: none;">To delete your account: <button class="acc_btn"><a 
+                href="/delete-me/{{user.id}}" style="text-decoration:
+                none;">Delete</a></button></li>
+            </ul>
+        </div>
+        <div class="updateAccount">
+            <h3 class="acc_h3">Update Profile</h3>
+            <form action="/update-info/{{user.id}}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="fname" class="register_form" placeholder="First Name">
+                <input type="text" name="lname" class="register_form" placeholder="Last Name">
+                <input type="email" name="email" class="register_form" placeholder="Email">
+                <input type="password" name="password" class="register_form" placeholder="Password">
+                <input type="password" name="confirm" class="register_form" placeholder="Confirm Password">
+                <button type="submit" class="acc_btn">Update</button>
+            </form>
+        </div>
+        <div class="acc_events">
+            <h1 class="acc_table">Events I created</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in user.event_poster.all %}
+                    <tr>
+                        <td>{{event.event}}</td>
+                        <td>{{event.location}}</td>
+                        <td>{{event.date}}</td>
+                        <td>{{event.time}}</td>
+                        <td><a href="delete-event/{{event.id}}">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
